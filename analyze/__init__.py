@@ -1,1 +1,1 @@
-from .analysis_func import count_specific_word, identify_most_common_word
+from .analysis_functions import count_specific_word, identify_most_common_word, calculate_average_word_length, count_paragraphs, count_sentences

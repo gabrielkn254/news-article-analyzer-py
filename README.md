@@ -24,7 +24,7 @@ To run this programm, you will need to clone this repo to your local machine.
 ### Installation & execution
 1. Clone this repo: `git clone git@github.com:gabrielkn254/news-article-analyzer-py.git`
 2. Navigate to this project directory: `cd news-article-analyzer-py`
-3. To run this program: `python app.py`
+3. To run this program: `python pythonAssessment.py` on app parent folder.
 
 ## License
 This project is licensed under the MIT License.
