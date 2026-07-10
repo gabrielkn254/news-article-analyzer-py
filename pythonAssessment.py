@@ -1,54 +1,94 @@
-# import fucntion modules from analyze package
-from analyze import count_specific_word, identify_most_common_word, calculate_average_word_length, count_paragraphs, count_sentences
+import re
 
-# You can use this sample text to test this program.
-sample_text = """Python is a high-level. interpreted programming language. widely celebrated for its readability and simplicity.
-Created by Guido van Rossum and released in 1991. its design philosophy emphasizes clean code structure. often using indentation instead of curly braces to define code blocks."""
+# Counts how many times a word has appeared
+def count_specific_word(article, word):
+    """
+    This function determines how many times a `word` appears in the string `article.
+    Note: This matches the exact word i.e article: appear, word: ear, doesn't match.
+    It is not case sensitive
 
-# APP MENU
+    args:
+        article: the string with many words.
+        word: the string you want to determine how many times the word appeared in article.
+    
+    raises:
+        Value Error when you either pass an empty article or word argument.
+    """
+    if not article or not word:
+        raise ValueError("Please pass a valid article & word")
+    return str(article).lower().split().count(word.lower())
 
-print("Article Analyzer")
-while True:
-    print("\nMENU:\ni.e Type '1' if choice is 'Count specific word'\n\n1. Count specific word\n2. Identify Most Common Word\n3. Calc average word length\n4. Count Number of Paragraphs\n5. Count Number Sentences\n\nType '0' to exit")
-    choice = input(": ")
-    if int(choice) == 1:
-        print("Choosed 1: Count specific word\n")
-        article = input("Submit article: ")
-        print("\n")
-        word = input("Word to count: ")
-        try:
-            print("\nCount: ", count_specific_word(article, word), "\n-----------------")
-        except ValueError as e:
-            print("Validation Error: ", str(e), "\n-----------------")
-        input("Type anything to go back to main menu: ")
-        continue        
-    elif int(choice) == 2:
-        print("Choosed 2: Identify most common word\n")
-        article = input("Submit article: ")
-        print("\nCommon word: ", identify_most_common_word(article), "\n-----------------")
-        input("Type anything to go back to main menu: ")
-        continue
-    elif int(choice) == 3:
-        print("Choosed 3: Calc average word length\n")
-        article = input("Submit article: ")
-        print("\nAverage: ", calculate_average_word_length(article), "\n-----------------")
-        input("Type anything to go back to main menu: ")
-        continue
-    elif int(choice) == 4:
-        print("Choosed 4: Count Number of paragraphs\n")
-        article = input("Submit article: ")
-        print("\nNo. of paragraphs: ", count_paragraphs(article), "\n-----------------")
-        input("Type anything to go back to main menu: ")
-        continue
-    elif int(choice) == 5:
-        print("Choosed 5: Count number of sentences\n")
-        article = input("Submit article: ")
-        print("\nNo. of sentences: ", count_sentences(article), "\n-----------------")
-        input("Type anything to go back to main menu: ")
-        continue
-    elif int(choice) == 0:
-        print("Goodbye")
-        break
-    else:
-        print("\nInput Error: Invalid choice")
-        continue
+# Finds the common word
+def identify_most_common_word(article):
+    """
+    This function determines which is the most common word in the string `article.
+    It is not case sensitive
+
+    args:
+        article: a string you want scan.
+    
+    raises:
+        No Error when you either pass an empty article but returns None.
+    """
+    if not article:
+        return None
+    words = article.lower().split()
+    words_count = {}
+    for word in words:
+        words_count[word] = words_count.get(word, 0) + 1
+    return max(words_count, key=words_count.get)
+
+# Calculate the average length of words
+def calculate_average_word_length(article):
+    """
+    This function calculates the average word length in the string `article.
+    It doesn't count punctuation marks & special characters as word.
+
+    args:
+        article: a string you want scan.
+    
+    raises:
+        No Error when you either pass an empty article but returns 0.
+    """
+    if not article:
+        return 0
+    clean_article = re.sub(r"[^\w\s]", "", article)
+    words = clean_article.split()
+    total = 0
+    for word in words:
+        total += len(word)
+    return total / len(words)
+
+# Count the number of paragraphs
+def count_paragraphs(article):
+    """
+    This function counts the number of paragraphs in the text `article.
+    It returns 1 for an empty string.
+
+    args:
+        article: a string you want scan.
+    
+    raises:
+        No Error when you either pass an empty article but returns 1.
+    """
+    if not article:
+        return 1
+    paragraphs = re.split("\n", article)
+    return len(paragraphs)
+
+# Count the number of sentences
+def count_sentences(article):
+    """
+    This function counts the number of sentences in the text `article.
+    It returns 1 for an empty string.
+
+    args:
+        article: a string you want scan.
+    
+    raises:
+        No Error when you either pass an empty article but returns 1.
+    """
+    if not article:
+        return 1
+    sentences = re.split(r"(?<=[.!?])\s+", article)
+    return len(sentences)
