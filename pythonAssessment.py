@@ -15,8 +15,10 @@ def count_specific_word(article, word):
         Value Error when you either pass an empty article or word argument.
     """
     if not article or not word:
-        raise ValueError("Please pass a valid article & word")
-    return str(article).lower().split().count(word.lower())
+        raise ValueError("Empty article")
+    clean_article = re.sub(r"[^\w\s]", "", article)
+    words = clean_article.split()
+    return words.count(word.lower())
 
 # Finds the common word
 def identify_most_common_word(article):
@@ -36,7 +38,9 @@ def identify_most_common_word(article):
     words_count = {}
     for word in words:
         words_count[word] = words_count.get(word, 0) + 1
-    return max(words_count, key=words_count.get)
+    max_word_appearances = max(words_count.values())
+    most_common_words = [word for word, count in words_count.items() if count == max_word_appearances]
+    return " ".join(most_common_words)
 
 # Calculate the average length of words
 def calculate_average_word_length(article):
@@ -73,7 +77,7 @@ def count_paragraphs(article):
     """
     if not article:
         return 1
-    paragraphs = re.split("\n", article)
+    paragraphs = re.split("\n+", article.strip())
     return len(paragraphs)
 
 # Count the number of sentences
@@ -90,5 +94,22 @@ def count_sentences(article):
     """
     if not article:
         return 1
-    sentences = re.split(r"(?<=[.!?])\s+", article)
+    raw_sentences = re.split(r"(?<=[.!?])\s+", article.strip())
+    sentences = [s for s in raw_sentences if re.search(r"[a-zA-Z0-9]", s)]
     return len(sentences)
+
+# sample article test
+text = """Python is a high-level. interpreted programming language. widely celebrated for its readability and simplicity.
+Created by Guido van Rossum and released in 1991. its design philosophy emphasizes clean code structure. Often using indentation instead of curly braces to define code blocks."""
+
+while True:
+    try:
+        print("Count: ", count_specific_word(text, "code"))
+    except ValueError as e:
+        print("Validation Error:", str(e))
+
+    print("Common word: ", identify_most_common_word(text))
+    print("Average: ", calculate_average_word_length(text))
+    print("No. of paragraphs: ", count_paragraphs(text))
+    print("No. of sentences: ", count_sentences(text))
+    break
