@@ -1,13 +1,12 @@
 # News Article Analyzer Python Program
-This is an article analyzer program built using python. It takes an article as an input, analyze it and return metrics about it. You can continue interacting with it using a menu.
+This is an article analyzer script built using python. It takes an article as an input, analyze it and return metrics about it.
 
 ## Features
-1. Menu - Interact with the program using a menu to perform various tasks.
-2. Word Counter: Submit a word and get how many times it appears.
-3. Identify the most common word.
-4. Calculate the average length of words.
-5. Count the number of paragraphs.
-6. Count the number of sentences in a text.
+1. Word Counter: Submit a word and get how many times it appears.
+2. Identify the most common word.
+3. Calculate the average length of words.
+4. Count the number of paragraphs.
+5. Count the number of sentences in a text.
 
 ## Technologies Used
 Python & git.
@@ -24,7 +23,8 @@ To run this programm, you will need to clone this repo to your local machine.
 ### Installation & execution
 1. Clone this repo: `git clone git@github.com:gabrielkn254/news-article-analyzer-py.git`
 2. Navigate to this project directory: `cd news-article-analyzer-py`
-3. To run this program: `python pythonAssessment.py` on app parent folder.
+3. To run a test article this program: `python pythonAssessment.py` on app parent folder.
+4. Update the `text` variable with the article your want to analyze.
 
 ## License
 This project is licensed under the MIT License.
